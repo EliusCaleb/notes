@@ -2,7 +2,9 @@
 set -o errexit
 
 bundle install
+bundle exec rails db:drop
 bundle exec rake db:reset
+bundle exec rails db:seed
 
 # bundle install
 # bundle exec rails assets:precompile
