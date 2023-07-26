@@ -4,7 +4,7 @@ class NotesController < ApplicationController
 
   # GET /notes
   def index
-    @notes = Note.find_by  user: @user.id
+    @notes = Note.all
     render json: @notes
   end
 
@@ -36,7 +36,11 @@ class NotesController < ApplicationController
 
   # DELETE /notes/1
   def destroy
-    @note.destroy
+    if @note.destroy
+      render json: { message: 'Note deleted successfully' }, status: :ok
+    else
+      render json: { error: 'Failed to delete the note' }, status: :unprocessable_entity
+    end
   end
 
   private
