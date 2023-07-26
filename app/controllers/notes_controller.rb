@@ -4,7 +4,7 @@ class NotesController < ApplicationController
 
   # GET /notes
   def index
-    @notes = Note.all
+    @notes = Note.where  user:@user.id 
     render json: @notes
   end
 
