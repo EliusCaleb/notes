@@ -4,7 +4,7 @@ class NotesController < ApplicationController
 
   # GET /notes
   def index
-    @notes = Note.find_by user: @user.id
+    @notes = Note.find_by  user: @user.id
     render json: @notes
   end
 
@@ -16,8 +16,8 @@ class NotesController < ApplicationController
   # POST /notes
   def create
     @note = Note.new(note_params)
-    @note.user = @user.id
-
+    @note.user = @user
+    @note.user = @user
     if @note.save
       render json: @note, status: :created, location: @note
     else
@@ -47,8 +47,6 @@ class NotesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def note_params
-      params.require(:note).permit(:message, :user_id)
+      params.require(:note).permit(:title, :body, :user_id)
     end
-
-
 end

@@ -12,7 +12,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create note" do
     assert_difference("Note.count") do
-      post notes_url, params: { note: { message: @note.message, user_id: @note.user_id } }, as: :json
+      post notes_url, params: { note: { body: @note.body, title: @note.title, user_id: @note.user_id } }, as: :json
     end
 
     assert_response :created
@@ -24,7 +24,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update note" do
-    patch note_url(@note), params: { note: { message: @note.message, user_id: @note.user_id } }, as: :json
+    patch note_url(@note), params: { note: { body: @note.body, title: @note.title, user_id: @note.user_id } }, as: :json
     assert_response :success
   end
 
