@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppState } from "../AppState.jsx";
 
 const Auth = () => {
@@ -13,12 +13,16 @@ const Auth = () => {
   const [userData, setUserData] = useState(null);
 
   const { state, dispatch } = useAppState();
+  const navigate= useNavigate()
 
   useEffect(() => {
     if (userData) {
       console.log(userData);
       const { token, user } = userData;
       dispatch({ type: "auth", payload: { token, username: user?.username } });
+      localStorage.setItem('token',token)
+      navigate('/dashboard')
+
     }
   }, [userData]);
 
