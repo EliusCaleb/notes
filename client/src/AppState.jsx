@@ -13,6 +13,10 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "auth":
       newState= {...state,...action.payload}
+      return newState 
+    case 'logout':
+      newState= {...state,token:null,username:null}
+      localStorage.removeItem('token')
       return newState
     default:
       return state;

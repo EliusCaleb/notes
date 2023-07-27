@@ -11,6 +11,9 @@ header nav a {
    color:black;
   text-decoration: none;
 }
+/* .logout{
+   color: white;
+} */
 
 header nav div{
    font-size: large;
