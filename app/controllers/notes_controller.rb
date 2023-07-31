@@ -1,10 +1,11 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: %i[ show update destroy ]
+  before_action :set_note, only: [:show, :update, :destroy]
   before_action :authorized
 
   # GET /notes
   def index
-    @notes = Note.where  user:@user.id 
+    @notes = Note.where user: @user.id
+
     render json: @notes
   end
 
@@ -17,7 +18,7 @@ class NotesController < ApplicationController
   def create
     @note = Note.new(note_params)
     @note.user = @user
-    @note.user = @user
+
     if @note.save
       render json: @note, status: :created, location: @note
     else
@@ -36,11 +37,7 @@ class NotesController < ApplicationController
 
   # DELETE /notes/1
   def destroy
-    if @note.destroy
-      render json: { message: 'Note deleted successfully' }, status: :ok
-    else
-      render json: { error: 'Failed to delete the note' }, status: :unprocessable_entity
-    end
+    @note.destroy
   end
 
   private
@@ -49,7 +46,7 @@ class NotesController < ApplicationController
       @note = Note.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # Only allow a trusted parameter "white list" through.
     def note_params
       params.require(:note).permit(:title, :body, :user_id)
     end

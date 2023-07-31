@@ -6,6 +6,16 @@ const initialState = {
   url: "http://localhost:3000/",
   token: null,
   username: null,
+  notes: [], 
+  new: {
+     title: '',
+     body: ''
+  },
+  edit: {
+    id: 0,
+    title: '',
+    body: ''
+  }
 };
 
 const reducer = (state, action) => {
@@ -18,6 +28,10 @@ const reducer = (state, action) => {
       newState= {...state,token:null,username:null}
       localStorage.removeItem('token')
       return newState
+    case 'getNotes':
+      console.log("getNotesAppState",action.payload)
+     newState ={...state, notes: action.payload}
+     return newState
     default:
       return state;
   }
