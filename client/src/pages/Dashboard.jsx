@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
 import { useAppState } from "../AppState";
-import { Link, Route, Routes } from "react-router-dom";
-import Forming from "../components/Forming";
+import { Link  } from "react-router-dom";
+
 
 const Dashboard = ({getNotes}) => {
   const { state } = useAppState();
@@ -38,13 +37,6 @@ const Dashboard = ({getNotes}) => {
       <Link to="/dashboard/new">
         <button>New Note</button>
       </Link>
-      <Routes>
-        <Route
-          path="/dashboard/:action"
-          element={<Forming getNotes={getNotes}  />}
-        />
-      </Routes>
-      <Outlet/>
       {notes.length > 0 ? (
         <ul>
           {state.notes.map((note) => (

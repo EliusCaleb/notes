@@ -10,11 +10,12 @@ import Forming from "./components/Forming";
 
 
 
+
 function App() {
 
   const { state, dispatch } = useAppState();
-  const { url, token } = state;
-
+  const {token,url} = state
+  
   const getNotes = async () => {
     try {
       const response = await fetch(url + "notes/", {
@@ -34,6 +35,7 @@ function App() {
       console.error("Error fetching notes:", error.message);
     }
   };
+ 
   const navigate =useNavigate()
   
   useEffect(()=>{
@@ -53,8 +55,9 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/auth/:form" element={<Auth />} />
-        <Route path="/dashboard/*" element={<Dashboard  getNotes={getNotes}   />} />
-        <Route path="/dashboard/new" element={<Forming getNotes={getNotes} />}/>
+        <Route path="/dashboard/*" element={<Dashboard  getNotes={getNotes} />} />
+        <Route path = '/dashboard/:action' element={<Forming   getNotes={getNotes}/>}/>
+      
       
       </Routes>
     </div>

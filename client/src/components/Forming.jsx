@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppState } from "../AppState";
 
-const Forming = ({ getNotes  }) => {
+const Forming = ({ getNotes }) => {
   const { state } = useAppState();
   const { token } = state;
-  const params = useParams()
-  const action = params.action
+  const params = useParams();
+  const action = params.action;
   const navigate = useNavigate();
   const [formData, setFormData] = useState(state[action]);
 
@@ -17,7 +17,7 @@ const Forming = ({ getNotes  }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "bearer" + token,
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(formData),
       }).then((resp) => resp.json());
@@ -28,7 +28,7 @@ const Forming = ({ getNotes  }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: "bearer" + token,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       }).then((resp) => resp.json());
@@ -38,36 +38,28 @@ const Forming = ({ getNotes  }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     actions[action]().then((data) => {
-  //          getNotes()
-  //          navigate('/dashboard')
+  const defaultAction = () => {
+    return Promise.reject(new Error("Invalid action"));
+  };
 
-  //       });
-
-  // };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //     actions[action]()?.then((data) => {
-  //       console.log("data", data)
-  //       getNotes();
-  //       navigate("dashboard/");
-  //     });
-    
-  // };
-
+  // Use the action from the params or default to "new" if not found
+  const actionFunction = actions[action] || defaultAction;
+  console.log("params.action:", params.action);
+  console.log("token",token)
   const handleSubmit = (e) => {
     e.preventDefault();
-    actions[action]().then((data) => {
-      console.log("data", data);
-      getNotes();
-      navigate("dashboard/");
-    }).catch((error) => {
-      console.error("Error executing action:", error);
-    });
+    console.log("state",state)
+    actionFunction()
+      .then((data) => {
+        console.log("data", data);
+        getNotes();
+        navigate("dashboard/");
+      })
+      .catch((error) => {
+        console.error("Error executing action:", error);
+      });
   };
-  
+
   return (
     <div className="form">
       <form onSubmit={handleSubmit}>
