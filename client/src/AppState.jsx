@@ -32,6 +32,10 @@ const reducer = (state, action) => {
       console.log("getNotesAppState",action.payload)
      newState ={...state, notes: action.payload}
      return newState
+     case 'select':
+      console.log("getNotesAppState",action.payload)
+     newState ={...state, edit: action.payload}
+     return newState
     default:
       return state;
   }

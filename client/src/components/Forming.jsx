@@ -42,7 +42,6 @@ const Forming = ({ getNotes }) => {
     return Promise.reject(new Error("Invalid action"));
   };
 
-  // Use the action from the params or default to "new" if not found
   const actionFunction = actions[action] || defaultAction;
   console.log("params.action:", params.action);
   console.log("token",token)

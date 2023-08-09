@@ -1,35 +1,17 @@
 import React, { useEffect } from "react";
 import { useAppState } from "../AppState";
-import { Link  } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 
 
 const Dashboard = ({getNotes}) => {
-  const { state } = useAppState();
+  const { state, dispatch } = useAppState();
   const {  notes,  username } = state;
-
-  // const getNotes = async () => {
-  //   try {
-  //     const response = await fetch(url + "notes/", {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: "Bearer " + token, 
-  //       },
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to fetch notes.");
-  //     }
-
-  //     const notesData = await response.json();
-  //     dispatch({ type: "getNotes", payload: notesData });
-  //   } catch (error) {
-  //     console.error("Error fetching notes:", error.message);
-  //   }
-  // };
+  const navigate = useNavigate()
 
   useEffect(() => {
     getNotes();
   }, []);
+  
 
   const loaded = () => (
     <div className="dashboard">
@@ -43,6 +25,10 @@ const Dashboard = ({getNotes}) => {
             <div className="note" key={note.id}>
               <h2>{note.title}</h2>
               <h4>{note.body}</h4>
+              <button onClick={()=>{
+                dispatch({type:'select', payload: note})
+                navigate('/dashboard/edit')
+              }}>Edit Notes</button>
             </div>
           ))}
         </ul>
