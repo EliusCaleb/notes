@@ -2,8 +2,9 @@
 set -o errexit
 
 bundle install
-bundle exec rails db:drop
-bundle exec rake db:reset
+bundle exec rails db:migrate RAILS_ENV=development 
+#bundle exec rails db:drop
+bundle exec DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rake db:reset
 bundle exec rails db:seed
 
 # bundle install
