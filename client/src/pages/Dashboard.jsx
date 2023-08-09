@@ -1,17 +1,15 @@
 import React, { useEffect } from "react";
 import { useAppState } from "../AppState";
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-
-const Dashboard = ({getNotes}) => {
+const Dashboard = ({ getNotes }) => {
   const { state, dispatch } = useAppState();
-  const {  notes,  username } = state;
-  const navigate = useNavigate()
+  const { url, notes, username, token } = state;
+  const navigate = useNavigate();
 
   useEffect(() => {
     getNotes();
   }, []);
-  
 
   const loaded = () => (
     <div className="dashboard">
@@ -25,10 +23,27 @@ const Dashboard = ({getNotes}) => {
             <div className="note" key={note.id}>
               <h2>{note.title}</h2>
               <h4>{note.body}</h4>
-              <button onClick={()=>{
-                dispatch({type:'select', payload: note})
-                navigate('/dashboard/edit')
-              }}>Edit Notes</button>
+              <button
+                onClick={() => {
+                  dispatch({ type: "select", payload: note });
+                  navigate("/dashboard/edit");
+                }}
+              >
+                Edit Notes
+              </button>
+
+              <button
+                onClick={() => {
+                  fetch(url + "notes/" + note.id, {
+                    method: "DELETE",
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                  }).then(() => getNotes());
+                }}
+              >
+                Delete Notes
+              </button>
             </div>
           ))}
         </ul>
