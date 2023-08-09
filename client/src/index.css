@@ -45,3 +45,20 @@ header nav div:hover{
 
 
 }
+
+/* dashboard */
+.dashboard{
+   text-align: center;
+}
+.dashboard .note{
+   text-align: center;
+   border: 3px solid rgb(174, 182, 162);
+}
+.dashboard .edit{
+   margin-right: 10px;
+   background-color: aquamarine;
+}
+.dashboard .delete{
+   background-color: pink;
+}
+

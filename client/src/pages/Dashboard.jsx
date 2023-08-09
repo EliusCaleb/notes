@@ -23,7 +23,7 @@ const Dashboard = ({ getNotes }) => {
             <div className="note" key={note.id}>
               <h2>{note.title}</h2>
               <h4>{note.body}</h4>
-              <button
+              <button className="edit"
                 onClick={() => {
                   dispatch({ type: "select", payload: note });
                   navigate("/dashboard/edit");
@@ -32,7 +32,7 @@ const Dashboard = ({ getNotes }) => {
                 Edit Notes
               </button>
 
-              <button
+              <button className="delete"
                 onClick={() => {
                   fetch(url + "notes/" + note.id, {
                     method: "DELETE",

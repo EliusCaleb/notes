@@ -10,13 +10,13 @@ const Navbar = () => {
       <header>
         <h1>Notes Book</h1>
         <nav>
-          <Link to="/">
-            <div>Home</div>
-          </Link>
           {!state.token ? (
             <>
               {
                 <>
+                  <Link to="/">
+                    <div>Home</div>
+                  </Link>
                   <Link to="/auth/signup">
                     {" "}
                     <div>Signup </div>
