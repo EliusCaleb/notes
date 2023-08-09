@@ -2,7 +2,8 @@
 set -o errexit
 
 bundle install
-bundle exec rails db:migrate RAILS_ENV=development 
+bundle exec rails db:migrate RAILS_ENV=production
+#RAILS_ENV=production bin/rails db:migrate
 bundle install
 #bundle exec rails db:drop
 bundle exec DISABLE_DATABASE_ENVIRONMENT_CHECK=1 
