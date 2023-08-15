@@ -3,7 +3,7 @@
 import React, { useReducer } from "react";
 
 const initialState = {
-  url: "http://localhost:3000/",
+  url: "https://notes-hstm.onrender.com/",
   token: null,
   username: null,
   notes: [], 
